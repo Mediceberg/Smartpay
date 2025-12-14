@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPay - مساعدك الذكي للتسوق والسفر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Reset and Global Styles */
+        :root {
+            --primary-color: #4a148c; /* لون بنفسجي غني (مستوحى من صور التطبيق) */
+            --secondary-color: #0d47a1; /* لون أزرق لبعض العناصر */
+            --text-dark: #212121;
+            --text-light: #ffffff;
+            --background-light: #f5f5f5;
+            --airdrop-glow: #ffc107; /* لون ذهبي/أصفر للـ Airdrop */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif; /* الخط الأساسي للغة العربية */
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background-light);
+            transition: all 0.3s ease;
+        }
+
+        /* Language Switcher Logic (Simple example for RTL/LTR) */
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            cursor: pointer;
+            padding: 8px 15px;
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header/Navigation Bar */
+        .header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            margin-inline-end: 10px;
+            /* أيقونة SmartPay (استبدلها لاحقاً بشعار حقيقي) */
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Poppins', sans-serif; /* خط مميز للوغو */
+        }
+        
+        .nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            margin-inline-start: 20px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover {
+            color: var(--airdrop-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 100px 5%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            max-width: 900px;
+            z-index: 2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 700px;
+            z-index: 2;
+        }
+
+        .app-link-button {
+            display: inline-block;
+            background-color: var(--airdrop-glow);
+            color: var(--text-dark);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .app-link-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .features h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--airdrop-glow);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--text-light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: right;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            float: right; /* لتكون الأيقونة على اليمين في RTL */
+            margin-inline-start: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            padding-top: 5px;
+        }
+        
+        .feature-card p {
+            text-align: justify;
+        }
+
+        /* Airdrop Section (القسم الاحترافي المطلوب) */
+        .airdrop-section {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 80px 5%;
+            text-align: center;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%); /* تأثير بصري مميز */
+            margin: 50px 0;
+            position: relative;
+        }
+        
+        .airdrop-section h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: var(--airdrop-glow);
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+        }
+
+        .airdrop-section p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .airdrop-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--airdrop-glow);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 25px rgba(255, 193, 7, 0.6);
+        }
+
+        .airdrop-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            text-align: right;
+        }
+
+        .airdrop-btn {
+            background-color: var(--airdrop-glow);
+            color: var(--primary-color);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .airdrop-btn:hover {
+            background-color: #ffeb3b;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--text-dark);
+            color: var(--background-light);
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 24px;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .features h2 {
+                font-size: 2rem;
+            }
+            
+            .airdrop-section h2 {
+                font-size: 2rem;
+            }
+            
+            .airdrop-section {
+                clip-path: none;
+                margin: 30px 0;
+            }
+
+            .header {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+            .nav {
+                margin-top: 15px;
+            }
+
+            .nav a {
+                margin: 0 10px;
+                display: inline-block;
+            }
+        }
+        
+        /* RTL-Specific adjustments (already covered by dir="rtl" but for explicit control) */
+        html[dir="rtl"] {
+             font-family: 'Tajawal', sans-serif;
+        }
+
+        html[dir="ltr"] {
+            font-family: 'Poppins', sans-serif;
+            text-align: left;
+        }
+        
+        html[dir="ltr"] .feature-card i {
+             float: left;
+             margin-inline-end: 15px;
+        }
+
+        /* Scroll to Top Button (أيضاً أيقونة العوجة/الرجوع) */
+        #scrollToTopBtn {
+            display: none; /* مخفي في البداية */
+            position: fixed;
+            bottom: 30px;
+            left: 30px; /* في زاوية مختلفة عن تبديل اللغة */
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: background-color 0.3s;
+        }
+
+        #scrollToTopBtn:hover {
+            background-color: var(--secondary-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="language-toggle" onclick="toggleLanguage()">
+        <span id="lang-text">English / العربية</span>
+    </div>
+
+    <button onclick="topFunction()" id="scrollToTopBtn" title="العودة للأعلى">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <header class="header">
+        <div class="logo-container">
+            <i class="fas fa-shipping-fast logo-icon"></i> 
+            <span class="logo-text">SmartPay</span>
+        </div>
+        <nav class="nav">
+            <a href="#hero-section" id="nav-home">الرئيسية</a>
+            <a href="#features-section" id="nav-features">المميزات</a>
+            <a href="#airdrop-section" id="nav-airdrop">الإيردروب المستقبلي</a>
+            <a href="https://smartpaybfdddefd7151.pinet.com" target="_blank" class="app-link-button" id="nav-download">ابدأ الآن!</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="hero-section">
+        <h1 id="hero-title">SmartPay: مساعدك الذكي للتسوق والسفر!</h1>
+        <p id="hero-subtitle">
+            يُحلل تطبيق SmartPay تفضيلاتك لاقتراح أفضل المنتجات، الفنادق، وخدمات السفر بأقل الأسعار وأعلى جودة.
+        </p>
+        <a href="https://smartpaybfdddefd7151.pinet.com" target="_blank" class="app-link-button">
+            <i class="fab fa-pi-network"></i> <span id="hero-button-text">اكتشف SmartPay على Pi Network</span>
+        </a>
+    </section>
+
+    <section class="features" id="features-section">
+        <h2 id="features-title">لماذا تختار SmartPay؟</h2>
+        <div class="features-grid">
+            
+            <div class="feature-card">
+                <i class="fas fa-magic"></i> 
+                <h3 id="feature1-title">تحليل ذكي (AI Recommended)</h3>
+                <p id="feature1-text">نظامنا المدعوم بالذكاء الاصطناعي يقدم لك اقتراحات شخصية تماماً بناءً على سجل التسوق، تفضيلاتك الموسيقية، ووجهاتك المفضلة، مما يضمن "المطابقة المثالية".</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-money-bill-wave"></i> 
+                <h3 id="feature2-title">أفضل الصفقات (Best Deals)</h3>
+                <p id="feature2-text">نحن نبحث باستمرار عن أفضل الخصومات والأسعار لرحلات الطيران والفنادق والمنتجات، لنوفر عليك الوقت والمال. شاهد صور المنتج (1000009706.jpg) كمثال.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-wallet"></i> 
+                <h3 id="feature3-title">خيارات دفع متقدمة (Payment Options)</h3>
+                <p id="feature3-text">يوفر التطبيق خيارات دفع متعددة بما في ذلك المحفظة الخاصة بـ SmartPay مع نسبة استرداد نقدي تصل إلى 5%، بالإضافة إلى خدمات مثل PayFast و QuickPay. (انظر صورة 1000009707.jpg).</p>
+            </div>
+
+            <div class="feature-card">
+                <i class="fas fa-globe-africa"></i> 
+                <h3 id="feature4-title">وجهات عالمية (Popular Destinations)</h3>
+                <p id="feature4-text">اكتشف وجهات السفر الأكثر شعبية مثل باريس، طوكيو، ودبي، مع أسعار تبدأ من $749. تخطيط رحلتك العالمية أصبح أسهل وأكثر اقتصاداً. (انظر صورة 1000009708.jpg).</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="airdrop-section" id="airdrop-section">
+        <div class="airdrop-box">
+            <i class="fas fa-rocket" style="font-size: 50px; color: var(--airdrop-glow); margin-bottom: 20px;"></i>
+            <h2 id="airdrop-title">💰 احجز مكانك في الإيردروب المستقبلي!</h2>
+            <p id="airdrop-text">انضم إلى قائمتنا البريدية وكن أول من يتلقى أخبار الإطلاق الرسمي والفرصة الحصرية للمشاركة في الإيردروب القادم لمستخدمي SmartPay الأوائل.</p>
+            
+            <form>
+                <input type="email" class="airdrop-input" placeholder="أدخل بريدك الإلكتروني" required>
+                <button type="submit" class="airdrop-btn" id="airdrop-button">سجل الآن</button>
+            </form>
+            <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.8;" id="airdrop-note">سيتم استخدام هذا البريد فقط لإشعارات الإيردروب وتحديثات التطبيق. كن مستعداً للانطلاق!</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p id="footer-slogan">SmartPay - تسوق بذكاء، سافر بذكاء.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+        <p id="footer-copy">© 2025 SmartPay. جميع الحقوق محفوظة.</p>
+        <p id="footer-contact">للتواصل: Contact Developer</p>
+    </footer>
+
+    <script>
+        // --- وظيفة العودة للأعلى (أيقونة العوجة) ---
+        var mybutton = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.display = "block";
+          } else {
+            mybutton.style.display = "none";
+          }
+        }
+
+        function topFunction() {
+          document.body.scrollTop = 0; // For Safari
+          document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }
+
+        // --- وظيفة تبديل اللغة (مثال بسيط) ---
+        let currentLang = 'ar';
+        
+        const ar_texts = {
+            'nav-home': 'الرئيسية',
+            'nav-features': 'المميزات',
+            'nav-airdrop': 'الإيردروب المستقبلي',
+            'nav-download': 'ابدأ الآن!',
+            'hero-title': 'SmartPay: مساعدك الذكي للتسوق والسفر!',
+            'hero-subtitle': 'يُحلل تطبيق SmartPay تفضيلاتك لاقتراح أفضل المنتجات، الفنادق، وخدمات السفر بأقل الأسعار وأعلى جودة.',
+            'hero-button-text': 'اكتشف SmartPay على Pi Network',
+            'features-title': 'لماذا تختار SmartPay؟',
+            'feature1-title': 'تحليل ذكي (AI Recommended)',
+            'feature1-text': 'نظامنا المدعوم بالذكاء الاصطناعي يقدم لك اقتراحات شخصية تماماً بناءً على سجل التسوق، تفضيلاتك الموسيقية، ووجهاتك المفضلة، مما يضمن "المطابقة المثالية".',
+            'feature2-title': 'أفضل الصفقات (Best Deals)',
+            'feature2-text': 'نحن نبحث باستمرار عن أفضل الخصومات والأسعار لرحلات الطيران والفنادق والمنتجات، لنوفر عليك الوقت والمال. شاهد صور المنتج (1000009706.jpg) كمثال.',
+            'feature3-title': 'خيارات دفع متقدمة (Payment Options)',
+            'feature3-text': 'يوفر التطبيق خيارات دفع متعددة بما في ذلك المحفظة الخاصة بـ SmartPay مع نسبة استرداد نقدي تصل إلى 5%، بالإضافة إلى خدمات مثل PayFast و QuickPay. (انظر صورة 1000009707.jpg).',
+            'feature4-title': 'وجهات عالمية (Popular Destinations)',
+            'feature4-text': 'اكتشف وجهات السفر الأكثر شعبية مثل باريس، طوكيو، ودبي، مع أسعار تبدأ من $749. تخطيط رحلتك العالمية أصبح أسهل وأكثر اقتصاداً. (انظر صورة 1000009708.jpg).',
+            'airdrop-title': '💰 احجز مكانك في الإيردروب المستقبلي!',
+            'airdrop-text': 'انضم إلى قائمتنا البريدية وكن أول من يتلقى أخبار الإطلاق الرسمي والفرصة الحصرية للمشاركة في الإيردروب القادم لمستخدمي SmartPay الأوائل.',
+            'airdrop-button': 'سجل الآن',
+            'airdrop-note': 'سيتم استخدام هذا البريد فقط لإشعارات الإيردروب وتحديثات التطبيق. كن مستعداً للانطلاق!',
+            'footer-slogan': 'SmartPay - تسوق بذكاء، سافر بذكاء.',
+            'footer-copy': '© 2025 SmartPay. جميع الحقوق محفوظة.',
+            'footer-contact': 'للتواصل: Contact Developer',
+            'lang-text': 'English / العربية'
+        };
+
+        const en_texts = {
+            'nav-home': 'Home',
+            'nav-features': 'Features',
+            'nav-airdrop': 'Future Airdrop',
+            'nav-download': 'Get Started Now!',
+            'hero-title': 'SmartPay: Your Smart Shopping & Travel Assistant!',
+            'hero-subtitle': 'SmartPay analyzes your preferences to suggest the best products, hotels, and travel services at the lowest prices and highest quality.',
+            'hero-button-text': 'Discover SmartPay on Pi Network',
+            'features-title': 'Why Choose SmartPay?',
+            'feature1-title': 'Smart Analysis (AI Recommended)',
+            'feature1-text': 'Our AI-powered system provides perfectly personalized suggestions based on your shopping history, music preferences, and favorite destinations, ensuring the "Perfect Match".',
+            'feature2-title': 'Best Deals & Discounts',
+            'feature2-text': 'We constantly search for the best discounts and prices for flights, hotels, and products, saving you time and money. (See image 1000009706.jpg for example).',
+            'feature3-title': 'Advanced Payment Options',
+            'feature3-text': 'The app offers multiple payment options, including the dedicated SmartPay Wallet with up to 5% cashback, plus services like PayFast and QuickPay. (See image 1000009707.jpg).',
+            'feature4-title': 'Global Destinations',
+            'feature4-text': 'Explore popular travel destinations like Paris, Tokyo, and Dubai, with prices starting from $749. Planning your world trip is now easier and more economical. (See image 1000009708.jpg).',
+            'airdrop-title': '💰 Secure Your Spot in the Future Airdrop!',
+            'airdrop-text': 'Join our mailing list and be the first to receive official launch news and the exclusive opportunity to participate in the upcoming Airdrop for early SmartPay users.',
+            'airdrop-button': 'Register Now',
+            'airdrop-note': 'This email will only be used for Airdrop notifications and app updates. Get ready for launch!',
+            'footer-slogan': 'SmartPay - Shop Smart, Travel Smart.',
+            'footer-copy': '© 2025 SmartPay. All rights reserved.',
+            'footer-contact': 'Contact: Contact Developer',
+            'lang-text': 'العربية / English'
+        };
+        
+        function updateText(texts) {
+            for (const [id, text] of Object.entries(texts)) {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (element.tagName === 'INPUT' && element.type === 'email') {
+                        element.placeholder = currentLang === 'ar' ? 'أدخل بريدك الإلكتروني' : 'Enter your Email';
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            }
+        }
+
+        function toggleLanguage() {
+            if (currentLang === 'ar') {
+                currentLang = 'en';
+                document.documentElement.setAttribute('lang', 'en');
+                document.documentElement.setAttribute('dir', 'ltr');
+                updateText(en_texts);
+                document.getElementById('scrollToTopBtn').style.left = 'unset';
+                document.getElementById('scrollToTopBtn').style.right = '30px';
+            } else {
+                currentLang = 'ar';
+                document.documentElement.setAttribute('lang', 'ar');
+                document.documentElement.setAttribute('dir', 'rtl');
+                updateText(ar_texts);
+                document.getElementById('scrollToTopBtn').style.right = 'unset';
+                document.getElementById('scrollToTopBtn').style.left = '30px';
+            }
+        }
+
+        // Set initial language to Arabic (AR)
+        updateText(ar_texts);
+    </script>
+
+</body>
+</html>
