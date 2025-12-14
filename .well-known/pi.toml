@@ -6,3 +6,6 @@ desc = "SmartPay is your smart shopping and travel assistant!
 It analyzes your preferences to suggest the best products, hotels, and travel services at the lowest prices and highest quality "
 image = "https://mediceberg.github.io/Smartpay/smart.png"
 
+[DOCUMENTATION]
+orgName = "Smart pay Project"
+orgURL = "https://smartpay-theta.vercel.app/"
