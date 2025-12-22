@@ -1,0 +1,11 @@
+[[CURRENCIES]]
+code = "Smartpay"
+issuer = "GBUTJJP3GZOYLWLJHZ4X2FR5AOALUUV27H3LI7CSJE3L7SELKJXOLA6Y"
+name = "Smart pay"
+desc = "SmartPay is your smart shopping and travel assistant! 
+It analyzes your preferences to suggest the best products, hotels, and travel services at the lowest prices and highest quality "
+image = "https://mediceberg.github.io/Smartpay/smart.png"
+
+[DOCUMENTATION]
+orgName = "Smart pay Project"
+orgURL = "https://smartpay-theta.vercel.app/"
