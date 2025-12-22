@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/.well-known/pi.toml",
+      "source": "/(.*)",
       "headers": [
         {
           "key": "Content-Type",
